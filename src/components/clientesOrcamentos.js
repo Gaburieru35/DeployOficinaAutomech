@@ -7,7 +7,7 @@ function clientesOrcamentos(){
     const [orcCli,setOrcamen]=useState([]);
 
     useEffect(() => {
-        fetch('http://4.227.162.137:8080/Orcamentos/cliente/3')
+        fetch('https://4.227.162.137:443/Orcamentos/cliente/3')
             .then(response => response.json())
             .then(data => setOrcamen(data));
             
@@ -19,7 +19,7 @@ function clientesOrcamentos(){
    
 
     useEffect(() => {
-        fetch('http://4.227.162.137:8080/Orcamentos/cliente/3')
+        fetch('https://4.227.162.137:443/Orcamentos/cliente/3')
             .then(response => response.json())
             .then(data => setData(data));
     }, []);

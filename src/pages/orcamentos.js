@@ -1,27 +1,15 @@
 import { useEffect,useState } from "react";
-import {Header} from "../components/Header";
-import {Sidebar} from "../components/Sidebar";
-import {GetOrcamento} from "../components/GetOrcamento";
-import {CreateOrcamento} from "../components/CreateOrcamento";
+import Header from "../components/Header";
+import Sidebar from "../components/Sidebar";
+import GetOrcamento from "../components/GetOrcamento";
+import CreateOrcamento from "../components/CreateOrcamento";
 
-import { 
-Container,
-Image,
-Button,
-Table,
-Thead,
-Tbody,
-Tfoot,
-Flex,
-Tr,
-Th,
-Td,
-TableCaption,
-TableContainer, 
-Input 
-} from "@chakra-ui/react";
-
-export const Orcamento = () => {
+import {
+    Flex
+  }
+  from "@chakra-ui/react";
+  
+const Orcamento = () => {
     const [showOrcamento, setShowOrcamento] = useState(false);
     const [showCreateOrc,setCreateOrc]=useState(false);
 
@@ -55,3 +43,5 @@ export const Orcamento = () => {
         </Flex>
     )
 }
+
+export default Orcamento;

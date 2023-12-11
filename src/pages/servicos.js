@@ -23,17 +23,17 @@ import {
     NumberDecrementStepper,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import {Header} from "../components/Header";
-import {Sidebar} from "../components/Sidebar";
+import Header from "../components/Header";
+import Sidebar from "../components/Sidebar";
 
-export const Servicos = () => {
+const Servicos = () => {
     const [valorServico, setValorServico] = useState(0);
     const [dataServico, setDataServico] = useState([2024, 1, 15]);
     const [descricaoServico, setDescricaoServico] = useState('');
     const [obsServico, setObsServico] = useState('');
     const [prazoServico, setPrazoServico] = useState([2024, 1, 20]);
     const [id, setId] = useState(1);
-    const [listProducts, setListProducts] = useState([])
+    
     const handleSubmit = () => {
         const servico = {
             valorServico,
@@ -43,7 +43,7 @@ export const Servicos = () => {
             prazoServico,
             id
         }
-        fetch('http://4.227.162.137:8080/Servicos', {
+        fetch('https://4.227.162.137:443/Servicos', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -66,7 +66,7 @@ export const Servicos = () => {
     
 
     const removeProduct = (id) => {
-        fetch(`http://4.227.162.137:8080/Servicos/${id}`, {
+        fetch(`https://4.227.162.137:443/Servicos/${id}`, {
             method: 'DELETE',
         })
         .then(data => {
@@ -86,7 +86,7 @@ export const Servicos = () => {
     const [servicos, setServicos] = useState([]);
 
     useEffect(() => {
-        fetch('http://4.227.162.137:8080/Servicos/all')
+        fetch('https://4.227.162.137:443/Servicos/all')
             .then(response => response.json())
             .then(data => setServicos(data))
             .catch(error => console.error('Erro:', error));
@@ -177,4 +177,5 @@ export const Servicos = () => {
             </Flex>
         </Flex>
     );
-}
+                    }
+export default Servicos;

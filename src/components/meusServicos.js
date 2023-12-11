@@ -1,7 +1,7 @@
 import { Box, Button, Table, Tbody, Td, Th, Thead, Tr, Text,Divider  } from "@chakra-ui/react";
 import React from "react";
 
-export const MeusServicos = () => {
+const MeusServicos = () => {
   const data = [
     {
       status: "Concluído",
@@ -54,3 +54,5 @@ export const MeusServicos = () => {
     </Box>
   );
 };
+
+export default MeusServicos;

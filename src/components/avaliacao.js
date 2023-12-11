@@ -1,5 +1,5 @@
 import { useState } from "react";
-// import { FaStar } from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
 import {
     Avatar,
     Flex,
@@ -19,7 +19,7 @@ const colors = {
 
 };
 
-export function Avaliacao() {
+function Avaliacao() {
     const [currentValue, setCurrentValue] = useState(0);
     const [hoverValue, setHoverValue] = useState(undefined);
     const stars = Array(5).fill(0)
@@ -41,7 +41,7 @@ export function Avaliacao() {
         <div style={styles.container}>
             <Text noOfLines={1} as='b' color={"black"} padding={10}> Avaliação da sua Experiência</Text>
             <Text noOfLines={1} as='a' color={"black"} padding={1}>Como você avalia a experiência na AutoMech </Text>
-            {/* <div style={styles.stars}>
+            <div style={styles.stars}>
                 {stars.map((_, index) => {
                     return (
                         <FaStar
@@ -58,7 +58,7 @@ export function Avaliacao() {
                         />
                     )
                 })}
-            </div> */}
+            </div>
             <textarea
                 placeholder="Escreva aqui seu comentário"
                 style={styles.textarea}
@@ -103,3 +103,5 @@ const styles = {
     }
 
 };
+
+export default Avaliacao;

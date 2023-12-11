@@ -8,13 +8,13 @@ import {
   useBreakpointValue,
 } from "@chakra-ui/react";
 import React from "react";
-import Logo from "../images/logo.png"
+import Logo from "../images/Logo.png"
 import { useSidebarContext } from "../contexts/SidebarContext";
-// import { FiMenu } from "react-icons/fi";
-// import Image from 'next/image'
+import { FiMenu } from "react-icons/fi";
+import Image from 'next/image'
 import Hora from "./Hora"
 
-export const Header = () => {
+const Header = () => {
   const isMobile = useBreakpointValue({
     base: true,
     lg: false,
@@ -38,7 +38,7 @@ export const Header = () => {
     >
       {isMobile && (
         <IconButton
-          // icon={<Icon as={FiMenu} />}
+          icon={<Icon as={FiMenu} />}
           onClick={onOpen}
           variant="unstyled"
           fontSize="20"
@@ -46,12 +46,12 @@ export const Header = () => {
         ></IconButton>
       )}
       
-      {/* <Image
+      <Image
       src={Logo}
       alt="Logo"
       width={114}
       height={86}
-    /> */}
+    />
    
       <Flex ml="auto">
         <HStack>
@@ -64,3 +64,5 @@ export const Header = () => {
     </Flex>
   );
 };
+
+export default Header;

@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Box, Button, FormControl, FormLabel, Input, Select, Table, Thead, Tbody, Tr, Th, TableCaption, TableContainer } from '@chakra-ui/react';
 
 
-export function GetOrcamento() {
+function GetOrcamento() {
     const [orcamento, setOrcamento] = useState([]);
     const [selectedOrcamento, setSelectedOrcamento] = useState(null);
 
      
 
     useEffect(() => {
-        fetch('http://4.227.162.137:8080/Orcamentos/all')
+        fetch('https://4.227.162.137:443/Orcamentos/all')
             .then(response => response.json())
             .then(data => setOrcamento(data));
     }, []);
@@ -23,7 +23,7 @@ export function GetOrcamento() {
                     statusorcamento: 2,
                 };
 
-                const response = await fetch(`http://4.227.162.137:8080/Orcamentos/${selectedOrcamento}`, {
+                const response = await fetch(`https://4.227.162.137:443/Orcamentos/${selectedOrcamento}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ export function GetOrcamento() {
 
     const handleDelete = async () => {
         if (selectedOrcamento) {
-            const response = await fetch(`http://4.227.162.137:8080/Orcamentos/${selectedOrcamento}`, {
+            const response = await fetch(`https://4.227.162.137:443/Orcamentos/${selectedOrcamento}`, {
                 method: 'DELETE',
             });
 
@@ -78,6 +78,7 @@ export function GetOrcamento() {
                             <Th>Valor do orçamento</Th>
                             <Th>Descrição</Th>
                             <Th>Status</Th>
+                            <Th>Data</Th>
                         </Tr>
                     </Thead>
                     <Tbody>
@@ -87,6 +88,7 @@ export function GetOrcamento() {
                                 <Th>{orc.valororcamento}</Th>
                                 <Th>{orc.probelmasorcamento}</Th>
                                 <Th>{orc.statusorcamento === 1 ? 'Em análise' : 'Aprovado'}</Th>
+                                <Th>{orc.dataorcamento}</Th>
                             </Tr>
                         ))}
                     </Tbody>
@@ -95,4 +97,6 @@ export function GetOrcamento() {
     </Box>
     );
 }
+
+export default GetOrcamento;
 

@@ -1,63 +1,117 @@
-import React, { useState } from 'react';
-import { Box, Button, FormControl, FormLabel, Input } from '@chakra-ui/react';
+import React, { useState, useEffect } from 'react';
+import { Box, Button, FormControl, FormLabel, Input, Select, Table, Thead, Tbody, Tr, Th, TableCaption, TableContainer } from '@chakra-ui/react';
+function createOrcamento(){
+const [orcamento, setOrcamento] = useState([]);
+const [selectedOrcamento, setSelectedOrcamento] = useState(null);
+const [newData, setNewData] = useState('');
+const [newValor, setNewValor] = useState('');
 
-export const CreateOrcamento = () => {
-    const [idorcamento, setIdorcamento] = useState('');
-    const [probelmasorcamento, setProbelmasorcamento] = useState('');
-    const [statusorcamento, setStatusorcamento] = useState(1);
-    const [valororcamento, setValororcamento] = useState('');
-    const [idveiculo, setIdveiculo] = useState('');
-
-    const handleSubmit = () => {
-        const orcamento = {
-            idorcamento,
-            probelmasorcamento,
-            statusorcamento,
-            valororcamento,
-            veiculo: {
-                id: idveiculo,
-            },
-        };
-
-        fetch('http://4.227.162.137:8080/Orcamentos', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(orcamento),
-        })
+useEffect(() => {
+    fetch('https://4.227.162.137:443/Orcamentos/all')
         .then(response => response.json())
-        .then(data => {
-            console.log('Sucesso:', data);
-        })
-        .catch((error) => {
-            console.error('Erro:', error);
-        });
-    };
+        .then(data => setOrcamento(data));
+}, []);
 
-    return (
-        <Box p={5}>
-            <FormControl id="idorcamento" mb={3}>
-                <FormLabel>Id do orçamento</FormLabel>
-                <Input type="text" value={idorcamento} onChange={e => setIdorcamento(e.target.value)} />
-            </FormControl>
-            <FormControl id="probelmasorcamento" mb={3}>
-                <FormLabel>Descrição do problema</FormLabel>
-                <Input type="text" value={probelmasorcamento} onChange={e => setProbelmasorcamento(e.target.value)} />
-            </FormControl>
-            <FormControl id="statusorcamento" mb={3}>
-                <FormLabel>Status do orçamento</FormLabel>
-                <Input type="text" value={statusorcamento} readOnly />
-            </FormControl>
-            <FormControl id="idveiculo" mb={3}>
-                <FormLabel>ID do Veículo</FormLabel>
-                <Input type="text" value={idveiculo} onChange={e => setIdveiculo(e.target.value)} />
-            </FormControl>
-            <FormControl id="valororcamento" mb={3}>
-                <FormLabel>Valor do orçamento</FormLabel>
-                <Input type="text" value={valororcamento} onChange={e => setValororcamento(e.target.value)} />
-            </FormControl>
-            <Button colorScheme="blue" onClick={handleSubmit}>Enviar</Button>
-        </Box>
-    );
-}
+const handleUpdateData = async () => {
+    if (selectedOrcamento && newData) {
+        const orcamentoToUpdate = orcamento.find(orc => orc.idorcamento === Number(selectedOrcamento));
+        if (orcamentoToUpdate) {
+            const updatedOrcamento = {
+                ...orcamentoToUpdate,
+                dataorcamento: newData.toString()
+            };
+
+            const response = await fetch(`https://4.227.162.137:443/Orcamentos/${selectedOrcamento}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(updatedOrcamento),
+            });
+
+            if (response.ok) {
+                console.log(`Data do orçamento ${selectedOrcamento} alterada para ${newData}`);
+            } else {
+                console.log('Erro ao alterar a data do orçamento.');
+            }
+        }
+    }
+};
+
+const handleUpdateValor = async () => {
+    if (selectedOrcamento && newValor) {
+        const orcamentoToUpdate = orcamento.find(orc => orc.idorcamento === Number(selectedOrcamento));
+        if (orcamentoToUpdate) {
+            const updatedOrcamento = {
+                ...orcamentoToUpdate,
+                valororcamento: newValor,
+            };
+
+            const response = await fetch(`https://4.227.162.137:443/Orcamentos/${selectedOrcamento}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(updatedOrcamento),
+            });
+
+            if (response.ok) {
+                console.log(`Valor do orçamento ${selectedOrcamento} alterado para ${newValor}`);
+            } else {
+                console.log('Erro ao alterar o valor do orçamento.');
+            }
+        }
+    }
+};
+
+return (
+    <Box p={5}>
+        <FormControl id="orcamento" mb={3}>
+            <FormLabel>Selecione o orçamento</FormLabel>
+            <Select placeholder="Selecione o orçamento" onChange={e => setSelectedOrcamento(e.target.value)}>
+                {orcamento.map(orc => (
+                    <option key={orc.idorcamento} value={orc.idorcamento}>{orc.idorcamento}</option>
+                ))}
+            </Select>
+        </FormControl>
+        <FormControl id="data" mb={3}>
+            <FormLabel>Insira a nova data</FormLabel>
+            <Input placeholder="Insira a nova data" onChange={e => setNewData(e.target.value)} />
+        </FormControl>
+        <Button colorScheme="blue" onClick={handleUpdateData}>Alterar Data</Button>
+        <FormControl id="valor" mb={3}>
+            <FormLabel>Insira o novo valor</FormLabel>
+            <Input placeholder="Insira o novo valor" onChange={e => setNewValor(e.target.value)} />
+        </FormControl>
+        <Button colorScheme="blue" onClick={handleUpdateValor}>Alterar Valor</Button>
+        <TableContainer ml={'50'} margin maxWidth={'800px'} width={'900px'} height={"full"}>
+            <Table variant={'simple'} width={''}>
+                <TableCaption>Orçamentos</TableCaption>
+                <Thead>
+                    <Tr>
+                        <Th>Id do orçamento</Th>
+                        <Th>Valor do orçamento</Th>
+                        <Th>Descrição</Th>
+                        <Th>Status</Th>
+                        <Th>Data</Th>
+                    </Tr>
+                </Thead>
+                <Tbody>
+                    {orcamento.map(orc => (
+                        <Tr key={orc.idorcamento}>
+                            <Th>{orc.idorcamento}</Th>
+                            <Th>{orc.valororcamento}</Th>
+                            <Th>{orc.probelmasorcamento}</Th>
+                            <Th>{orc.statusorcamento === 1 ? 'Em análise' : 'Aprovado'}</Th>
+                            <Th>{orc.dataorcamento}</Th>
+                        </Tr>
+                    ))}
+                </Tbody>
+            </Table>
+        </TableContainer>
+    </Box>
+);
+
+                    }
+                    
+export default createOrcamento

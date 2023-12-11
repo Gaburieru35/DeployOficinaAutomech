@@ -1,10 +1,10 @@
 import React from "react";
 import { Box, Link as ChakraLink, Stack, Text } from "@chakra-ui/react";
-import {Link} from "react-router-dom";
-// import { useRouter } from "next/router";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 const SidebarNav = () => {
-  // const { asPath } = useRouter();
+  const { asPath } = useRouter();
 
   return (
     <Stack spacing="6"> 
@@ -17,9 +17,9 @@ const SidebarNav = () => {
             px="4"
             py="2"
             borderRadius={5}
-            // bg={asPath === "/home" ? "gray.200" : ""}
+            bg={asPath === "/home" ? "gray.200" : ""}
           >
-            <Link to="/home">
+            <Link href="/home">
               <Text fontSize="md" fontWeight="medium" color="gray.500">
                 HOME
               </Text>
@@ -37,22 +37,37 @@ const SidebarNav = () => {
             px="4"
             py="2"
             borderRadius={5}
-            // bg={asPath === "/balance" ? "gray.200" : ""}
+            bg={asPath === "/balance" ? "gray.200" : ""}
           >
-            <Link to="/balance">
+            <Link href="/balance">
               <Text fontSize="md" fontWeight="medium" color="gray.500">
                 ORÇAMENTOS
               </Text>
             </Link>
           </ChakraLink>
+
           <ChakraLink
             _hover={{ bg: "gray.100" }}
             px="4"
             py="2"
             borderRadius={5}
-            // bg={asPath === "/stockEntries" ? "gray.200" : ""}
+            bg={asPath === "/Reparos" ? "gray.200" : ""}
           >
-            <Link to="/stockEntries">
+            <Link href="/Reparos">
+              <Text fontSize="md" fontWeight="medium" color="gray.500">
+                REPAROS
+              </Text>
+            </Link>
+          </ChakraLink>
+
+          <ChakraLink
+            _hover={{ bg: "gray.100" }}
+            px="4"
+            py="2"
+            borderRadius={5}
+            bg={asPath === "/stockEntries" ? "gray.200" : ""}
+          >
+            <Link href="/stockEntries">
               <Text fontSize="md" fontWeight="medium" color="gray.500">
                 PRODUTOS
               </Text>
@@ -63,9 +78,9 @@ const SidebarNav = () => {
             px="4"
             py="2"
             borderRadius={5}
-            // bg={asPath === "/stockOutputs" ? "gray.200" : ""}
+            bg={asPath === "/stockOutputs" ? "gray.200" : ""}
           >
-            <Link to="/stockOutputs">
+            <Link href="/stockOutputs">
               <Text fontSize="md" fontWeight="medium" color="gray.500">
                 ESTOQUE DE PEÇAS
               </Text>
@@ -76,11 +91,25 @@ const SidebarNav = () => {
             px="4"
             py="2"
             borderRadius={5}
-            // bg={asPath === "/servicos" ? "gray.200" : ""}
+            bg={asPath === "/servicos" ? "gray.200" : ""}
           >
-            <Link to="/servicos">
+            <Link href="/servicos">
               <Text fontSize="md" fontWeight="medium" color="gray.500">
                 SERVIÇOS
+              </Text>
+            </Link>
+          </ChakraLink>
+
+          <ChakraLink
+            _hover={{ bg: "gray.100" }}
+            px="4"
+            py="2"
+            borderRadius={5}
+            bg={asPath === "/cadastrarReparo" ? "gray.200" : ""}
+          >
+            <Link href="/cadastrarReparo">
+              <Text fontSize="md" fontWeight="medium" color="gray.500">
+                CADASTRAR REPARO
               </Text>
             </Link>
           </ChakraLink>

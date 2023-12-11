@@ -13,10 +13,10 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import {Header} from "../components/Header";
-import {Sidebar} from "../components/Sidebar";
+import Header from "../components/Header";
+import Sidebar from "../components/Sidebar";
 
-export const StockEntries = () => {
+const StockEntries = () => {
   const [amount, setAmount] = useState("");
   const [product_id, setProduct_id] = useState("0");
   const [listStockEntries, setStockEntries] = useState([]);
@@ -150,3 +150,5 @@ export const StockEntries = () => {
     </Flex>
   );
 };
+
+export default StockEntries;

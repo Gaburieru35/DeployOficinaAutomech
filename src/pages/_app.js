@@ -3,14 +3,29 @@ import { SidebarProvider } from "../contexts/SidebarContext";
 import '../css/styles.css'
 
 
-export function MyApp({ Component, pageProps }) {
+
+function MyApp({ Component, pageProps }) {
+
+  setTimeout(() => {
+    getUrlParams()
+  }, 1500)
+
+  function getUrlParams(){
+    let url = new URLSearchParams(window.location.search)
+    var tipo = url.get("tipo")
+    var id = url.get("id")
+    
+    localStorage.setItem("id", id)
+    localStorage.setItem("tipo", tipo)
+  }
+
   return (
-    <div className="normalBackground">
-      <ChakraProvider>
-        <SidebarProvider>
-          <Component {...pageProps} />
-        </SidebarProvider>
-      </ChakraProvider>
-    </div>
+    <ChakraProvider>
+      <SidebarProvider>
+        <Component {...pageProps} />
+      </SidebarProvider>
+    </ChakraProvider>
   );
 }
+
+export default MyApp;

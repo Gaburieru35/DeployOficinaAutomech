@@ -22,12 +22,12 @@ import {
   StatGroup,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import {Header} from "../components/Header";
-import {Sidebar} from "../components/Sidebar";
-import {GetOrcamento} from "../components/GetOrcamento";
-import {CreateOrcamento} from "../components/CreateOrcamento";
+import Header from "../components/Header";
+import Sidebar from "../components/Sidebar";
+import GetOrcamento from "../components/GetOrcamento";
+import CreateOrcamento from "../components/CreateOrcamento";
 
-export function Balance() {
+function Balance() {
 
   useEffect(() => {
 
@@ -79,3 +79,5 @@ export function Balance() {
 
   )
 }
+
+export default Balance;

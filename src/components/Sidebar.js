@@ -12,7 +12,7 @@ import React from "react";
 import { useSidebarContext } from "../contexts/SidebarContext";
 import SidebarNav from "./SidebarNav";
 
-export const Sidebar = () => {
+const Sidebar = () => {
   const { isOpen, onClose } = useSidebarContext();
 
   const isDrawerSidebar = useBreakpointValue({
@@ -43,3 +43,5 @@ export const Sidebar = () => {
     </Box>
   );
 };
+
+export default Sidebar;

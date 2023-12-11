@@ -14,10 +14,10 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { Header } from "../components/Header";
-import { Sidebar } from "../components/Sidebar";
+import Header from "../components/Header";
+import Sidebar from "../components/Sidebar";
 
-export const Produtos = () => {
+const Produtos = () => {
   const [name, setName] = useState("");
   const [listProducts, setListProducts] = useState([]);
 
@@ -141,3 +141,4 @@ export const Produtos = () => {
     </Flex>
   );
 };
+export default Produtos;

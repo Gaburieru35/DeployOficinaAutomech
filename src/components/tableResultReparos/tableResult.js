@@ -1,50 +1,41 @@
 import React from "react";
-import { useState, useEffect } from 'react';
-import "./style.css";
-import { Table } from 'react-bootstrap';
+import { useState } from 'react';
 
-import { Select } from '@chakra-ui/react'
-import { Button, ButtonGroup } from '@chakra-ui/react'
-import {
-    Alert,
-    AlertIcon,
-    AlertTitle,
-    AlertDescription,
-  } from '@chakra-ui/react'
+import { Table, Tbody, Td, Th, Thead, Tr  } from "@chakra-ui/react";
 
-  import { Spinner } from '@chakra-ui/react'
+import { Box, Select } from '@chakra-ui/react'
+import { Button } from '@chakra-ui/react'
+import { Alert, AlertIcon } from '@chakra-ui/react'
+
+import { Spinner } from '@chakra-ui/react'
 
 export const TableResultReparos = () => {
 
     const [alert, setAlert] = useState({active: false, type: '', msg: ''})
     const [spinner, setSpinner] = useState(false)
-    retornarOrcamentos()
+    // retornarOrcamentos()
 
     async function retornarOrcamentos(){
-        const response = await fetch(`http://4.227.162.137:8080/Orcamentos/all`, { method: 'GET' })
+        const response = await fetch(`https://4.227.162.137:443/Orcamentos/all`, { method: 'GET' })
         var data = await response.json();
         var campo = document.getElementById('selectOrcamento');
         var options = '';
   
         for(var i =0; i< data.length; i++){
-  
           options = '<option value="'+ data[i].idorcamento +'">Orçamento '+ data[i].idorcamento +'</option>'
           campo.innerHTML += options;
-  
         }
-      }
+    }
 
     async function getReparos(){
-        let idOrcamento = document.getElementById("selectOrcamento").value;
-        let url = `http://4.227.162.137:8080/Reparo/Pesquisar?idOrcamento=${idOrcamento}`
+        let idOrcamento = 2 //document.getElementById("selectOrcamento").value;
+        let url = `https://4.227.162.137:443/Reparo/Pesquisar?idOrcamento=${idOrcamento}`
         const response = await fetch(url, { method: 'GET' })
         var data = await response.json();
-        console.log(data)
         showReparos(data)
     }
 
     async function showReparos(data){
-
         document.getElementById('reparosTbody').innerHTML = '';
         document.getElementById('selectOrcamento').innerHTML = '';
         setSpinner(true);
@@ -85,7 +76,7 @@ export const TableResultReparos = () => {
             inputsPost.push(parseInt(inputsElements[i].value))
         }
 
-        let url = `http://4.227.162.137:8080/Reparo/FinalizarReparo?idReparo=${inputsPost}`
+        let url = `https://4.227.162.137:443/Reparo/FinalizarReparo?idReparo=${inputsPost}`
         const response = await fetch(url, { method: 'POST' })
         var data = await response.json();
 
@@ -107,9 +98,8 @@ export const TableResultReparos = () => {
     }
     
     return (
-        <>
-            
-            {
+        <Box padding="6" overflowX="auto">
+             {
                 alert.active == true ? <Alert status={alert.type} variant='left-accent' id="alert">
                                             <AlertIcon />
                                             {alert.msg}
@@ -117,35 +107,31 @@ export const TableResultReparos = () => {
                                         null
 
             }
-            
-        <div className="wrap-table">
-            <div id="top-itens">
-                <Select placeholder='Selecione um orçamento' id="selectOrcamento" variant='filled'>
+            <Box id="top-itens">
+                <Select hidden placeholder='Selecione um orçamento' id="selectOrcamento" variant='filled'>
 
                 </Select>
-                <Button color='#f7b925' backgroundColor='#575756' variant='ghost' onClick={getReparos}>Pesquisar</Button>
-            </div>
-            <Table id="tableReparos" striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Prazo finalização</th>
-                        <th>Descrição</th>
-                        <th>Valor do reparo</th>
-                    </tr>
-                </thead>
+                <Button mt="6" color='#f7b925' backgroundColor='#575756' variant='ghost' onClick={getReparos}>Pesquisar</Button>
+            </Box>
+            <Table id="tableReparos" Table variant="striped">
+                <Thead>
+                    <Tr>
+                        <Th>#</Th>
+                        <Th>Prazo finalização</Th>
+                        <Th>Descrição</Th>
+                        <Th>Valor do reparo</Th>
+                    </Tr>
+                </Thead>
                 { spinner == true ? <Spinner /> : null }
-                <tbody id="reparosTbody">
+                <Tbody id="reparosTbody">
                     
-                </tbody>
+                </Tbody>
             </Table>
 
-            <div className="btnGroup">
-                    <Button color='#f7b925' backgroundColor='#575756'>Informar cliente</Button>
-                    <Button color='#f7b925' backgroundColor='#575756' onClick={finalizarReparos}>Finalizar reparos</Button>
-            </div>
+            <Box mt="2" className="btnGroup">
+                <Button color='#f7b925' backgroundColor='#575756' onClick={finalizarReparos}>Finalizar reparos</Button>
+            </Box>
 
-        </div>
-    </>
+        </Box>
     );
 };

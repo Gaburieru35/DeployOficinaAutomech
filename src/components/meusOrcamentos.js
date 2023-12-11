@@ -1,7 +1,7 @@
 import { Box, Button, Table, Tbody, Td, Th, Thead, Tr, Text } from "@chakra-ui/react";
 import React from "react";
 
-export const MeusOrcamentos = () => {
+const MeusOrcamentos = () => {
   const data = [
     {
       status: "Aguardando aprovação",
@@ -58,3 +58,5 @@ export const MeusOrcamentos = () => {
     </Box>
   );
 };
+
+export default MeusOrcamentos;
